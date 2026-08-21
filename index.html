@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HAI SAYANGG 💙</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,"Trebuchet MS",sans-serif}
+body{background:linear-gradient(135deg,#dff7ff,#a9dcff,#f0fbff);color:#164b70;overflow-x:hidden}
+.screen{display:none;min-height:100vh;align-items:center;justify-content:center;padding:25px 16px;position:relative}
+.screen.active{display:flex}
+.card,.panel{width:min(520px,100%);background:rgba(255,255,255,.9);border:2px solid #fff;border-radius:30px;padding:28px 22px;text-align:center;box-shadow:0 20px 55px #327fa533;backdrop-filter:blur(12px)}
+h1{font-size:clamp(35px,9vw,54px);margin:7px 0;color:#1470a7}
+h2{color:#1470a7;margin:8px 0 18px}
+p{line-height:1.65}
+button{border:0;border-radius:18px;padding:13px 20px;background:#218dcc;color:#fff;font-weight:700;font-size:16px;cursor:pointer;box-shadow:0 8px 18px #218dcc33;transition:.18s}
+button:hover{transform:translateY(-2px)}
+.open{padding:15px 50px;margin-top:8px}
+.back{position:absolute;top:16px;left:16px;background:#ffffffdd;color:#176895;padding:9px 15px;z-index:5}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:300px;margin:18px auto}
+.key{background:#effaff;color:#176895;border:2px solid #bce6f8;box-shadow:none;font-size:20px}
+.display{height:43px;font-size:28px;letter-spacing:8px}
+.clue{font-size:13px;color:#7196aa}.error{height:24px;color:#df6280;font-size:14px}
+.box{width:195px;height:150px;margin:25px auto;border-radius:28px;background:linear-gradient(145deg,#6bc8f0,#238aca);display:flex;align-items:center;justify-content:center;font-size:58px;cursor:pointer;box-shadow:0 15px 28px #237eaa44}
+.options{display:none;gap:11px}.option{background:#fff;color:#176895;border:2px solid #c5eafa;box-shadow:none}
+.content{width:min(550px,100%)}.letter,.song,.flowers,.coupons{background:#ffffffed;border-radius:28px;padding:23px;box-shadow:0 15px 35px #3b88ae22}
+.photo{width:100%;height:260px;object-fit:cover;border-radius:21px;margin:12px 0;display:block;background:#eaf9ff}
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.photo-grid .photo{height:165px;margin:0}
+.song-cover{width:170px;height:170px;object-fit:cover;border-radius:22px;margin:5px auto 18px;display:block;background:#eaf9ff}
+.player{background:#edfaff;border-radius:24px;padding:18px;text-align:left}
+.now{display:flex;align-items:center;gap:13px}.mini-cover{width:60px;height:60px;border-radius:12px;object-fit:cover;background:#bfe9fa}
+.song-title{font-weight:800;color:#176895}.artist{font-size:13px;color:#6d92a6;margin-top:4px}
+.controls{display:flex;align-items:center;justify-content:center;gap:12px;margin:16px 0}.controls button{border-radius:50%;width:48px;height:48px;padding:0}.controls .main{width:58px;height:58px;font-size:20px}
+.progress{width:100%;accent-color:#218dcc}
+.time{display:flex;justify-content:space-between;font-size:11px;color:#668da4}
+.playlist{margin-top:14px}.track{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;cursor:pointer}.track:hover{background:#dff5ff}.track.active{background:#d5f1ff}.track-num{width:28px;text-align:center;color:#2488b9;font-weight:bold}
+.flowers{font-size:53px;line-height:1.45;text-align:center}
+.coupon{border:2px dashed #65b8dc;background:#effaff;border-radius:20px;padding:15px;margin:12px 0;cursor:pointer;text-align:left}
+.coupon h3{margin:0;color:#176895}.detail{display:none;margin-top:10px;font-size:14px;line-height:1.55}.coupon.opened .detail{display:block}
+.finish{margin-top:10px}.capy{font-size:105px;animation:bob .8s infinite alternate}
+@keyframes bob{to{transform:translateY(-12px) rotate(3deg)}}
+.sparkles{font-size:28px;letter-spacing:8px}.small{font-size:13px;color:#7195a9}
+.note{font-size:12px;color:#5c8aa2;background:#eefaff;border-radius:12px;padding:9px;margin-top:12px;text-align:left}
+</style>
+</head>
+<body>
+
+<section id="slide1" class="screen active"><div class="card">
+<div class="sparkles">✨ 💙 ✨</div><div style="font-size:65px">🧸💌</div>
+<h1>HAI SAYANGG</h1>
+<p>Ada sesuatu kecik untuk awakkk 🥹💙<br>Jangan curi-curi skip tauuu 👀✨</p>
+<button class="open" onclick="show('slide2')">OPEN 💌</button>
+<p class="small">pssst… buka sampai habis tau 🫣💙</p>
+</div></section>
+
+<section id="slide2" class="screen"><button class="back" onclick="show('slide1')">← Back</button><div class="card">
+<div style="font-size:42px">🔐💙</div><h2>Secret Code</h2><p>Masukkan password sayangg 👀</p>
+<div class="display" id="display">••••</div>
+<div class="keypad">
+<button class="key" onclick="press(1)">1</button><button class="key" onclick="press(2)">2</button><button class="key" onclick="press(3)">3</button>
+<button class="key" onclick="press(4)">4</button><button class="key" onclick="press(5)">5</button><button class="key" onclick="press(6)">6</button>
+<button class="key" onclick="press(7)">7</button><button class="key" onclick="press(8)">8</button><button class="key" onclick="press(9)">9</button>
+<button class="key" onclick="erase()">⌫</button><button class="key" onclick="press(0)">0</button><button class="key" onclick="check()">✓</button>
+</div><div class="clue">💭 clue: <b>1020</b> hehe… dekat dah tu 🤭</div><div class="error" id="error"></div>
+</div></section>
+
+<section id="slide3" class="screen"><button class="back" onclick="show('slide2')">← Back</button><div class="card">
+<div class="sparkles">🩵 ✨ 🩵</div><h2>click this box sayangg 🥺🎁</h2>
+<div class="box" onclick="openBox()">🎁</div><p id="hint">Tekan kotak tuuu 👀💙</p>
+<div id="options" class="options">
+<button class="option" onclick="show('letter')">💌 1 — Letter + Gambar</button>
+<button class="option" onclick="show('song')">🎧 2 — Our Little Album</button>
+<button class="option" onclick="show('flowers')">💐 3 — Bouquet Bunga</button>
+<button class="option" onclick="show('photos')">📸 4 — 3 Little Pictures</button>
+<button class="option" onclick="show('date')">💙 5 — MOK DATE SINI SAYANG</button>
+</div></div></section>
+
+<section id="letter" class="screen"><button class="back" onclick="show('slide3')">← Back</button><div class="content letter">
+<div style="font-size:38px">💌🩵</div><h2>A Little Letter For You</h2>
+<img class="photo" src="letter.jpg" alt="Letter photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="photo" style="display:none;align-items:center;justify-content:center;color:#5189a6">📷 Gambar tidak dijumpai — gunakan <b>letter.jpg</b></div>
+<p><b>Untuk sayang,</b> 🫶🏻</p>
+<p>Saya cuma nak awak tahu… awak adalah salah satu perkara yang buat hari-hari saya jadi lebih bermakna. Terima kasih sebab hadir, sebab jadi diri awak, dan sebab bagi saya banyak kenangan untuk disimpan. 🥹💙</p>
+<p>Saya mungkin tak selalu pandai tunjuk semuanya, tapi saya harap awak tahu yang awak sangat dihargai. Jangan lupa senyum, jangan lupa makan, dan jangan lupa… saya sayang awakkk. 🫣💙</p>
+<p><b>With lots and lots of love,<br>orang yang selalu pilih awak 🤍🩵</b></p>
+<div class="sparkles">🦋 ✨ 🌷 ✨ 🦋</div>
+<div class="note">📌 Gambar: <b>letter.jpg</b></div>
+</div></section>
+
+<section id="song" class="screen"><button class="back" onclick="stopMusic();show('slide3')">← Back</button><div class="content song">
+<h2>🎧 Our Little Album 💿</h2>
+<img class="song-cover" src="album.jpg" alt="Album cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+<div class="photo" style="display:none;align-items:center;justify-content:center;color:#5189a6;height:170px">📷 Gambar tidak dijumpai — gunakan <b>album.jpg</b></div>
+
+<div class="player">
+<div class="now"><img id="miniCover" class="mini-cover" src="album.jpg"><div><div id="songTitle" class="song-title">Track 01 — Our Song</div><div class="artist">💙 Our Little Album</div></div></div>
+<div class="controls"><button onclick="prevSong()">⏮</button><button id="playBtn" class="main" onclick="togglePlay()">▶</button><button onclick="nextSong()">⏭</button></div>
+<input id="progress" class="progress" type="range" min="0" max="100" value="0" step="0.1" oninput="seek()">
+<div class="time"><span id="current">0:00</span><span id="duration">0:00</span></div>
+</div>
+
+<div class="playlist">
+<div class="track active" onclick="chooseSong(0)"><div class="track-num">01</div><div>🎵 <b>Our Song</b><br><span class="small">song1.mp3</span></div></div>
+<div class="track" onclick="chooseSong(1)"><div class="track-num">02</div><div>🎶 <b>Little Memory</b><br><span class="small">song2.mp3</span></div></div>
+<div class="track" onclick="chooseSong(2)"><div class="track-num">03</div><div>💙 <b>You</b><br><span class="small">song3.mp3</span></div></div>
+</div>
+
+<p style="text-align:left"><b>💌 Short letter:</b><br>Kalau setiap lagu boleh simpan satu kenangan, saya nak album ni penuh dengan cerita pasal kita. 🎧💙</p>
+<div class="note">📌 Lagu mesti diletakkan dalam folder yang sama dengan HTML: <b>song1.mp3</b>, <b>song2.mp3</b>, <b>song3.mp3</b>.<br>📌 Gambar album: <b>album.jpg</b></div>
+<audio id="audio" preload="metadata"></audio>
+</div></section>
+
+<section id="flowers" class="screen"><button class="back" onclick="show('slide3')">← Back</button><div class="content flowers">
+<h2>💐 Bouquet For You 💙</h2><div>🌷 🌸 🌷<br>🌿 🩵 🌿<br>🌷 🌼 🌷</div>
+<p>Ini bouquet khas untuk sayanggg 🥹💐</p><p>Bunga betul mungkin layu, tapi bunga dalam website ni takkan layu. HAHAHA 🤭💙</p>
+<p>Anggaplah saya tengah hulurkan bunga ni dekat awak sekarang. 🫴🏻💐</p><div>🦋 ✨ 🦋 ✨ 🦋</div>
+</div></section>
+
+<section id="photos" class="screen"><button class="back" onclick="show('slide3')">← Back</button><div class="content letter">
+<h2>📸 Three Little Pictures 🩵</h2><div class="photo-grid">
+<img class="photo" src="photo1.jpg" alt="Gambar 1" onerror="this.outerHTML='<div class=&quot;photo&quot; style=&quot;display:flex;align-items:center;justify-content:center&quot;>📷 photo1.jpg</div>'">
+<img class="photo" src="photo2.jpg" alt="Gambar 2" onerror="this.outerHTML='<div class=&quot;photo&quot; style=&quot;display:flex;align-items:center;justify-content:center&quot;>📷 photo2.jpg</div>'">
+<img class="photo" src="photo3.jpg" alt="Gambar 3" onerror="this.outerHTML='<div class=&quot;photo&quot; style=&quot;display:flex;align-items:center;justify-content:center&quot;>📷 photo3.jpg</div>'">
+</div><p><b>3 gambar.</b> Tapi setiap satu ada cerita sendiri. 🥹💙✨</p>
+<div class="note">📌 Nama gambar: <b>photo1.jpg</b>, <b>photo2.jpg</b>, <b>photo3.jpg</b></div>
+</div></section>
+
+<section id="date" class="screen"><button class="back" onclick="show('slide3')">← Back</button><div class="content coupons">
+<div class="sparkles">🩵✨🌷✨🩵</div><h2>MOK DATE SINI SAYANG 💙</h2>
+<p>Ini bukan sekadar kupon tauuu 👀<br>Ini kupon untuk kita buat kenangan sama-sama. 🫶🏻</p>
+<div class="coupon" onclick="toggleCoupon(this)"><h3>🎟️ Waterfall Date 🌊</h3><div class="detail">Kupon ini boleh ditebus untuk satu date pergi waterfall! 🌊💙 Kita jalan-jalan, dengar bunyi air, ambil gambar, borak benda random dan enjoy masa sama-sama. 🥹🫶🏻<br><br><b>Redeem:</b> bila kita sama-sama free hehe 🤭</div></div>
+<div class="coupon" onclick="toggleCoupon(this)"><h3>🎟️ Cinema Date 🍿</h3><div class="detail">Satu tiket date cinema! 🎬🍿 Kita pilih movie, beli popcorn, duduk sebelah-sebelah dan pura-pura tak takut kalau cerita horror. 😭💙<br><br><b>Redeem:</b> movie night kita 🎞️✨</div></div>
+<div class="coupon" onclick="toggleCoupon(this)"><h3>🎟️ Makan-Makan 🍜</h3><div class="detail">Kupon paling penting dalam sejarah. 😭🍜 Kita pergi makan apa saja yang kita craving. Noodles, ayam, dessert, makanan random—semua boleh! 🫶🏻💙<br><br><b>Redeem:</b> bila perut mula berbunyi 🤣</div></div>
+<button class="finish" onclick="show('finish')">FINISH ✨💙</button>
+</div></section>
+
+<section id="finish" class="screen"><div class="card">
+<div class="sparkles">✨ 💙 ✨</div><div class="capy">🦫</div><h1>hehe… FINISH! 🥹💙</h1>
+<p>Awak berjaya sampai penghujunggg! 🎉🫶🏻</p><p>Terima kasih sebab buka sampai habis. Saya harap awak senyum walaupun sikit. 🥹💙</p>
+<p><b>Okay bye sayangg 👋🏻💙<br>jangan lupa saya tauuu 🫣</b></p><div class="sparkles">🌷 🦋 💌 🦋 🌷</div>
+</div></section>
+
+<script>
+let code="";
+const songs=[
+ {file:"song1.mp3",title:"Track 01 — Our Song"},
+ {file:"song2.mp3",title:"Track 02 — Little Memory"},
+ {file:"song3.mp3",title:"Track 03 — You"}
+];
+let currentSong=0;
+const audio=document.getElementById("audio");
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");scrollTo(0,0)}
+function press(n){if(code.length<4)code+=n;document.getElementById("display").textContent=code.padEnd(4,"•");document.getElementById("error").textContent=""}
+function erase(){code=code.slice(0,-1);document.getElementById("display").textContent=code.padEnd(4,"•")}
+function check(){if(code==="1022"){show("slide3");code="";document.getElementById("display").textContent="••••"}else{document.getElementById("error").textContent="EHH SALAHH 😭 cuba lagi sayanggg 🫣";code="";document.getElementById("display").textContent="••••"}}
+function openBox(){document.getElementById("options").style.display="grid";document.getElementById("hint").textContent="AHAHA terbukaaa! Pilih satu sayangg 🥹💙✨"}
+function toggleCoupon(el){el.classList.toggle("opened")}
+function loadSong(i,auto=false){
+ currentSong=i; audio.src=songs[i].file; document.getElementById("songTitle").textContent=songs[i].title;
+ document.querySelectorAll(".track").forEach((x,n)=>x.classList.toggle("active",n===i));
+ document.getElementById("progress").value=0; document.getElementById("current").textContent="0:00"; document.getElementById("duration").textContent="0:00";
+ if(auto)audio.play().catch(()=>{}); updatePlay();
+}
+function chooseSong(i){loadSong(i,true)}
+function togglePlay(){if(!audio.src)loadSong(currentSong,true);else if(audio.paused)audio.play().catch(()=>{});else audio.pause();updatePlay()}
+function stopMusic(){audio.pause();updatePlay()}
+function prevSong(){loadSong((currentSong-1+songs.length)%songs.length,true)}
+function nextSong(){loadSong((currentSong+1)%songs.length,true)}
+function seek(){if(audio.duration)audio.currentTime=(document.getElementById("progress").value/100)*audio.duration}
+function fmt(s){if(!isFinite(s))return"0:00";let m=Math.floor(s/60),sec=Math.floor(s%60).toString().padStart(2,"0");return m+":"+sec}
+function updatePlay(){document.getElementById("playBtn").textContent=audio.paused?"▶":"⏸"}
+audio.addEventListener("loadedmetadata",()=>document.getElementById("duration").textContent=fmt(audio.duration));
+audio.addEventListener("timeupdate",()=>{document.getElementById("progress").value=audio.duration?(audio.currentTime/audio.duration)*100:0;document.getElementById("current").textContent=fmt(audio.currentTime)});
+audio.addEventListener("play",updatePlay);audio.addEventListener("pause",updatePlay);
+audio.addEventListener("ended",()=>{if(currentSong<songs.length-1)nextSong();else{audio.currentTime=0;updatePlay()}});
+loadSong(0,false);
+</script>
+</body>
+</html>
